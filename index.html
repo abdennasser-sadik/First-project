@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Atelier Noir — Modern Fashion</title>
+    <meta name="description" content="Modern, minimalist fashion. Shop men, women, accessories, and new arrivals.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+      /* ============================
+         CSS Variables & Base Styles
+         ============================ */
+      :root {
+        --bg: #ffffff;
+        --text: #0b0b0b;
+        --muted: #6b6b6b;
+        --accent: #c5a880; /* soft beige-gold */
+        --border: #eaeaea;
+        --card: #fafafa;
+        --shadow: 0 10px 30px rgba(0,0,0,0.06);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0b0b0b;
+          --text: #f2f2f2;
+          --muted: #b5b5b5;
+          --accent: #d4af37;
+          --border: #1e1e1e;
+          --card: #121212;
+          --shadow: 0 10px 30px rgba(0,0,0,0.35);
+        }
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      img { max-width: 100%; display: block; }
+      a { color: inherit; text-decoration: none; }
+      * { box-sizing: border-box; }
+
+      .container {
+        width: min(1200px, 92%);
+        margin: 0 auto;
+      }
+
+      /* ============================
+         Header / Navigation
+         ============================ */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: saturate(180%) blur(10px);
+        background: color-mix(in oklab, var(--bg) 88%, transparent);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+      }
+
+      .logo {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        letter-spacing: 1px;
+        font-size: 1.1rem;
+      }
+
+      .logo span { color: var(--accent); }
+
+      .nav-links {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+      }
+
+      .nav-links a {
+        position: relative;
+        font-weight: 600;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0; bottom: -6px;
+        width: 0; height: 2px;
+        background: var(--accent);
+        transition: width .25s ease;
+      }
+
+      .nav-links a:hover::after { width: 100%; }
+
+      .nav-toggle {
+        display: none;
+        width: 40px; height: 40px;
+        align-items: center; justify-content: center;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: transparent;
+        color: var(--text);
+      }
+
+      @media (max-width: 768px) {
+        .nav-links { display: none; }
+        .nav-toggle { display: inline-flex; }
+      }
+
+      /* ============================
+         Mobile Menu
+         ============================ */
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        inset: 64px 0 auto 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+      .mobile-menu.open { display: block; }
+      .mobile-menu a {
+        display: block;
+        padding: 16px 24px;
+        border-top: 1px solid var(--border);
+        font-weight: 600;
+      }
+      .mobile-menu a:hover { background: var(--card); }
+
+      /* ============================
+         Hero
+         ============================ */
+      .hero {
+        position: relative;
+        display: grid;
+        align-items: center;
+        min-height: clamp(520px, 55vh, 760px);
+        padding: 56px 0 72px;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .hero h1 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: clamp(2rem, 1.2rem + 3.2vw, 3.6rem);
+        line-height: 1.1;
+        margin: 10px 0 14px;
+      }
+
+      .hero p { color: var(--muted); margin: 0 0 22px; }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 18px;
+        border-radius: 10px;
+        border: 1px solid var(--accent);
+        background: var(--accent);
+        color: #0b0b0b;
+        font-weight: 700;
+        box-shadow: var(--shadow);
+        transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+      }
+      .cta:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(0,0,0,0.14); opacity: 0.95; }
+
+      .hero-visual {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        background:
+          radial-gradient(1200px 600px at 100% 0%, color-mix(in oklab, var(--accent) 18%, transparent), transparent),
+          linear-gradient(180deg, color-mix(in oklab, var(--card) 86%, transparent), transparent);
+      }
+
+      .hero-visual img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/5; }
+
+      @media (max-width: 992px) {
+        .hero-inner { grid-template-columns: 1fr; }
+        .hero-visual { order: -1; }
+      }
+
+      /* ============================
+         About
+         ============================ */
+      section { padding: 84px 0; }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 44px;
+        align-items: center;
+      }
+
+      .about-grid h2 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.6rem, 1rem + 2.2vw, 2.4rem);
+        margin: 0 0 10px;
+      }
+
+      .about-grid p { color: var(--muted); margin: 0; }
+
+      .about-media {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      @media (max-width: 900px) {
+        .about-grid { grid-template-columns: 1fr; }
+      }
+
+      /* ============================
+         Collections / Services
+         ============================ */
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        margin-bottom: 24px;
+      }
+      .section-head h2 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 800;
+        margin: 0;
+        font-size: clamp(1.4rem, 0.9rem + 2.1vw, 2.2rem);
+      }
+      .section-sub { color: var(--muted); }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+      }
+
+      .card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 14px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        transition: transform .18s ease, box-shadow .18s ease;
+        isolation: isolate;
+      }
+      .card:hover { transform: translateY(-4px); box-shadow: 0 18px 42px rgba(0,0,0,0.14); }
+
+      .card img { width: 100%; height: 220px; object-fit: cover; filter: saturate(0.94) contrast(1.02); }
+      .card .body { padding: 14px 16px 18px; }
+      .card h3 { margin: 0 0 6px; font-size: 1.05rem; font-weight: 700; font-family: "Montserrat", sans-serif; }
+      .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+      @media (max-width: 1100px) {
+        .grid { grid-template-columns: repeat(3, 1fr); }
+      }
+      @media (max-width: 800px) {
+        .grid { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-width: 540px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+
+      /* ============================
+         Contact
+         ============================ */
+      .contact {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 36px;
+      }
+      @media (max-width: 900px) {
+        .contact { grid-template-columns: 1fr; }
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 18px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+
+      label { font-weight: 600; font-size: 0.95rem; }
+
+      input, textarea {
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--bg);
+        color: var(--text);
+        font: inherit;
+      }
+
+      textarea { min-height: 120px; resize: vertical; }
+
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        gap: 8px;
+        padding: 12px 16px;
+        border: 1px solid var(--accent);
+        background: var(--accent);
+        color: #0b0b0b;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+      }
+      .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0,0,0,0.14); opacity: 0.95; }
+
+      .info-block {
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 18px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+      .info-block p { margin: 6px 0; }
+
+      .sr-only {
+        position: absolute !important;
+        height: 1px; width: 1px;
+        overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+        white-space: nowrap; border: 0; padding: 0; margin: -1px;
+      }
+
+      /* ============================
+         Footer
+         ============================ */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 18px 0 32px;
+      }
+      .footer-grid {
+        display: grid; gap: 18px; align-items: center;
+        grid-template-columns: 1fr auto 1fr;
+      }
+      .footer-links { display: flex; gap: 18px; }
+      .social { display: flex; gap: 14px; justify-content: flex-end; }
+
+      .footer-links a, .social a { color: var(--muted); }
+      .footer-links a:hover, .social a:hover { color: var(--accent); }
+
+      @media (max-width: 720px) {
+        .footer-grid { grid-template-columns: 1fr; text-align: center; }
+        .social { justify-content: center; }
+      }
+
+      /* ============================
+         Reveal Animations
+         ============================ */
+      .reveal { opacity: 0; transform: translateY(14px); transition: opacity 600ms ease, transform 600ms ease; }
+      .reveal.visible { opacity: 1; transform: translateY(0); }
+    </style>
+  </head>
+  <body>
+    <header aria-label="Primary">
+      <div class="container nav" role="navigation">
+        <a class="logo" href="#home" aria-label="Atelier Noir home">Atelier<span>Noir</span></a>
+        <nav class="nav-links" aria-label="Main">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#collections">Collections</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <button class="nav-toggle" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle menu">☰</button>
+      </div>
+      <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile menu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#collections">Collections</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero container">
+        <div class="hero-inner">
+          <div class="copy reveal">
+            <div class="eyebrow">New Season — Timeless Silhouettes</div>
+            <h1>Elevate your wardrobe with minimalist luxury</h1>
+            <p>Thoughtfully designed pieces for Men and Women. Crafted with premium fabrics and attention to detail.</p>
+            <a class="cta" href="#collections" aria-label="Shop now and view collections">Shop Now →</a>
+          </div>
+          <div class="hero-visual reveal" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1500&auto=format&fit=crop" alt="Monochrome fashion editorial" loading="eager" width="800" height="1000">
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="container about-grid">
+          <div class="about-media reveal" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=1500&auto=format&fit=crop" alt="Lifestyle fashion scene" loading="lazy" width="800" height="600">
+          </div>
+          <div class="about-copy reveal">
+            <h2>About Atelier Noir</h2>
+            <p>We blend contemporary tailoring with everyday ease. Our collections are designed for versatility and longevity, with a commitment to ethical sourcing and refined craftsmanship.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="collections">
+        <div class="container">
+          <div class="section-head">
+            <h2>Collections</h2>
+            <p class="section-sub">Explore our curation of seasonal essentials</p>
+          </div>
+          <div class="grid">
+            <article class="card reveal" aria-label="Men collection card">
+              <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1500&auto=format&fit=crop" alt="Men's minimalist outfit" loading="lazy" width="600" height="400">
+              <div class="body">
+                <h3>Men</h3>
+                <p>Structured layers and clean lines for every day.</p>
+              </div>
+            </article>
+            <article class="card reveal" aria-label="Women collection card">
+              <img src="./src/women.jpg">
+              <div class="body">
+                <h3>Women</h3>
+                <p>Soft textures, elevated basics, modern silhouettes.</p>
+              </div>
+            </article>
+            <article class="card reveal" aria-label="Accessories collection card">
+              <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1500&auto=format&fit=crop" alt="Minimalist accessories" loading="lazy" width="600" height="400">
+              <div class="body">
+                <h3>Accessories</h3>
+                <p>Statement accents that complete your look.</p>
+              </div>
+            </article>
+            <article class="card reveal" aria-label="New arrivals collection card">
+              <img src="https://images.unsplash.com/photo-1520975954732-35dd83fbef1d?q=80&w=1500&auto=format&fit=crop" alt="New arrivals rack" loading="lazy" width="600" height="400">
+              <div class="body">
+                <h3>New Arrivals</h3>
+                <p>Fresh drops weekly. Limited runs, lasting style.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="container contact">
+          <form id="contact-form" novalidate aria-labelledby="contact-heading">
+            <h2 id="contact-heading" class="sr-only">Contact Us</h2>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" required aria-required="true">
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required aria-required="true">
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="How can we help?" required aria-required="true"></textarea>
+
+            <button class="btn" type="submit" aria-label="Send message">Send Message</button>
+            <p id="form-status" role="status" aria-live="polite" class="sr-only"></p>
+          </form>
+
+          <aside class="info-block" aria-label="Store contact information">
+            <h3 class="sr-only">Contact Info</h3>
+            <p><strong>Address:</strong> 123 Mercer St, New York, NY</p>
+            <p><strong>Phone:</strong> <a href="tel:+1234567890">+1 (234) 567-890</a></p>
+            <p><strong>Email:</strong> <a href="mailto:hello@ateliernoir.com">hello@ateliernoir.com</a></p>
+            <p><strong>Hours:</strong> Mon–Sat, 10:00–19:00</p>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-grid">
+        <div class="footer-links" aria-label="Legal links">
+          <a href="#" aria-label="Privacy policy">Privacy</a>
+          <a href="#" aria-label="Terms and conditions">Terms</a>
+        </div>
+        <div id="copyright" aria-label="Copyright">© <span id="year"></span> Atelier Noir</div>
+        <div class="social" aria-label="Social links">
+          <a href="#" aria-label="Instagram" title="Instagram">IG</a>
+          <a href="#" aria-label="Twitter" title="Twitter">TW</a>
+          <a href="#" aria-label="Pinterest" title="Pinterest">PI</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // ============================
+      // Mobile menu toggle
+      // ============================
+      (function() {
+        const toggle = document.querySelector('.nav-toggle');
+        const menu = document.getElementById('mobile-menu');
+        const links = menu.querySelectorAll('a');
+        if (!toggle || !menu) return;
+        function closeMenu() {
+          menu.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+        toggle.addEventListener('click', () => {
+          const isOpen = menu.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', String(isOpen));
+        });
+        links.forEach(a => a.addEventListener('click', closeMenu));
+      })();
+
+      // ============================
+      // Smooth scrolling for nav links
+      // ============================
+      (function() {
+        const selector = 'a[href^="#"]';
+        const links = document.querySelectorAll(selector);
+        links.forEach(link => {
+          link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (!targetId || targetId === '#') return;
+            const target = document.querySelector(targetId);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              history.pushState(null, '', targetId);
+            }
+          });
+        });
+      })();
+
+      // ============================
+      // Reveal on scroll animations
+      // ============================
+      (function() {
+        const items = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window)) {
+          items.forEach(el => el.classList.add('visible'));
+          return;
+        }
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.2 });
+        items.forEach(el => io.observe(el));
+      })();
+
+      // ============================
+      // Basic form validation
+      // ============================
+      (function() {
+        const form = document.getElementById('contact-form');
+        const status = document.getElementById('form-status');
+        if (!form) return;
+
+        function setStatus(text, isError) {
+          status.textContent = text;
+          status.classList.toggle('sr-only', false);
+          status.style.color = isError ? 'tomato' : 'inherit';
+          setTimeout(() => { status.classList.add('sr-only'); }, 4000);
+        }
+
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const name = form.name.value.trim();
+          const email = form.email.value.trim();
+          const message = form.message.value.trim();
+
+          const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+          if (!name) { setStatus('Please enter your name.', true); return; }
+          if (!emailOk) { setStatus('Please provide a valid email.', true); return; }
+          if (message.length < 10) { setStatus('Message should be at least 10 characters.', true); return; }
+
+          setStatus('Thanks! Your message has been received.', false);
+          form.reset();
+        });
+      })();
+
+      // ============================
+      // Dynamic year in footer
+      // ============================
+      (function() {
+        const year = document.getElementById('year');
+        if (year) year.textContent = String(new Date().getFullYear());
+      })();
+    </script>
+  </body>
+</html>
